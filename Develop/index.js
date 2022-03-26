@@ -2,6 +2,7 @@
 const inquirer = require('inquirer')
 const fs = require('fs')
 const generateMarkdown = require('../Develop/utils/generateMarkdown')
+let dir = '../Dist'
 
 // TODO: Create an array of questions for user input
 const promptUser = async () => {
@@ -85,7 +86,23 @@ const promptUser = async () => {
 };
 
 // TODO: Create a function to write README file
-function writeToFile(fileName, data) {}
+const writeToFile = fileContent => {
+    return new Promise((resolve, reject) => {
+    if (!fs.existsSync(dir)){
+        fs.mkdirSync(dir)
+    }
+      fs.writeFile('../Dist/README.md', fileContent, err => {
+        if (err) {
+            reject(err);
+            return;
+        }
+            resolve({
+            ok: true,
+            message: 'File created!'
+            });
+        });
+    });
+};
 
 // TODO: Create a function to initialize app
 const init = async () => {
